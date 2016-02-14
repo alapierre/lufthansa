@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd
+                           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       ">
+
+    <!-- import the routes from another XML file -->
+    <import resource="routes-as-bean.xml"/>
+
+    <camel:camelContext>
+        <camel:routeContextRef ref="routes"/>
+    </camel:camelContext>
+
+    <!-- lets configure the ActiveMQ JMS broker server -->
+    <amq:broker useJmx="true" persistent="false" brokerName="myBroker">
+        <amq:transportConnectors>
+            <amq:transportConnector name="vm" uri="vm://localhost"/>
+        </amq:transportConnectors>
+    </amq:broker>
+
+    <bean id="test-jms" class="org.apache.activemq.camel.component.ActiveMQComponent">
+        <property name="brokerURL" value="vm://myBroker"/>
+    </bean>
+
+</beans>
