@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 rel. 3 sp1 (http://www.altova.com) by Adrian Lapierre (SoftProject) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.softproject.com.pl/lilu/model/order" targetNamespace="http://www.softproject.com.pl/lilu/model/order">
+	<xs:element name="order">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="order-id" type="xs:string"/>
+				<xs:element name="order-date" type="xs:dateTime"/>
+				<xs:element name="worthe">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:double">
+								<xs:attribute name="currency" default="PLN">
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:length value="3"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+								<xs:attribute name="difference" type="xs:double" default="0"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="orygin-country-code" default="PL" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="2"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="store-code" minOccurs="0">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute name="self-service" type="xs:boolean" default="false"/>
+								<xs:attribute name="accounted" type="xs:boolean" default="false"/>
+								<xs:attribute name="user-id" type="xs:string"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="status" type="Status"/>
+				<xs:element name="delivery-address" type="Address"/>
+				<xs:element name="customer" type="Customer"/>
+				<xs:element name="payer" type="Payer" minOccurs="0"/>
+				<xs:element name="transport" type="Transport" minOccurs="0"/>
+				<xs:element name="suites" type="Suites"/>
+				<xs:element name="comments" type="Comments"/>
+				<xs:element name="sign-image" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Address">
+		<xs:sequence>
+			<xs:element name="city" type="xs:string"/>
+			<xs:element name="country">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="country-code" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="street" type="xs:string"/>
+			<xs:element name="post-code" type="xs:string"/>
+			<xs:element name="street-line1" type="xs:string" minOccurs="0"/>
+			<xs:element name="street-line2" type="xs:string" minOccurs="0"/>
+			<xs:element name="street-line3" type="xs:string" minOccurs="0"/>
+			<xs:element name="company-name" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Status">
+		<xs:sequence>
+			<xs:element name="current" type="xs:string"/>
+			<xs:element name="next" type="xs:string"/>
+			<xs:element name="id" type="xs:int"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Customer">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="last-name" type="xs:string"/>
+			<xs:element name="phone" type="xs:string"/>
+			<xs:element name="email" type="xs:string"/>
+			<xs:element name="company-name" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Payer">
+		<xs:sequence>
+			<xs:element name="company-name" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="last-name" type="xs:string"/>
+			<xs:element name="address" type="Address"/>
+			<xs:element name="vat-number" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Suites">
+		<xs:sequence>
+			<xs:element name="suite" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string"/>
+						<xs:element name="items">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="item" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="name" type="xs:string"/>
+												<xs:element name="label" type="xs:string"/>
+												<xs:element name="subjekt-id" type="xs:string"/>
+												<xs:element name="price" minOccurs="0">
+													<xs:complexType>
+														<xs:simpleContent>
+															<xs:extension base="xs:double">
+																<xs:attribute name="currency" default="PLN">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:length value="3"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:attribute>
+																<xs:attribute name="difference" type="xs:double" default="0"/>
+															</xs:extension>
+														</xs:simpleContent>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="volume" type="xs:int" minOccurs="0"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="image-url" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Comments">
+		<xs:sequence>
+			<xs:element name="comment" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="type" type="xs:string"/>
+						<xs:element name="value" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Transport">
+		<xs:sequence>
+			<xs:element name="id" type="xs:int" minOccurs="0"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="price">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:double">
+							<xs:attribute name="currency" default="PLN">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:length value="3"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="type" type="xs:string"/>
+			<xs:element name="subjekt-id" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
