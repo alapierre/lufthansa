@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessagePostProcessor;
 
-import pl.com.softproject.esb.jmx.model.Person;
+import pl.com.softproject.esb.jmx.model.Car;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -27,17 +27,17 @@ public class SendBean {
 
         JmsTemplate jms = ctx.getBean(JmsTemplate.class);
 
-        final Person person = new Person();
+        Car car = Car.builder()
+                .color("zielony")
+                .milage(122)
+                .model("Audi")
+                .build();
 
-        person.setAge(11);
-        person.setLastName("Kowalski");
-        person.setName("Jan");
-
-        jms.convertAndSend(person, new MessagePostProcessor() {
+        jms.convertAndSend(car, new MessagePostProcessor() {
             public Message postProcessMessage(Message message) throws JMSException {
 
                 //message.setStringProperty("format", "JSON");
-                message.setJMSType("pl.com.softproject.esb.jmx.model.Person");
+                //message.setJMSType("pl.com.softproject.esb.jmx.model.Person");
                 return message;
             }
         });
