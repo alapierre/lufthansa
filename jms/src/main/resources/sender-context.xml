@@ -18,6 +18,8 @@
         http://activemq.apache.org/schema/core/activemq-core.xsd
 ">
 
+    <context:component-scan base-package="pl.com.softproject.esb.jmx"/>
+
     <amq:queue id="queue" physicalName="q1"/>
 
     <amq:connectionFactory id="jmsFactory" brokerURL="tcp://localhost:61616"/>
