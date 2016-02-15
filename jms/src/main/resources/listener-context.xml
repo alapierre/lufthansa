@@ -28,15 +28,22 @@
     <jms:listener-container container-type="default"
                             connection-factory="jmsConsumerConnectionFactory"
                             acknowledge="auto">
-        <jms:listener destination="q1" ref="jmsMessageListener" />
+        <!--<jms:listener destination="q1" ref="jmsMessageListener" />-->
+        <jms:listener destination="q1" ref="orderListener" />
     </jms:listener-container>
 
     <bean id="jmsMessageListener" class="pl.com.softproject.esb.jmx.MyMessageListener">
         <property name="messageConverter" ref="messageConverter"/>
     </bean>
 
+    <bean id="orderListener" class="pl.com.softproject.esb.jmx.OrderListener">
+
+    </bean>
+
     <bean class="org.springframework.jms.support.converter.MappingJackson2MessageConverter" name="messageConverter">
         <property name="typeIdPropertyName" value="beanClass"/>
     </bean>
+
+
 
 </beans>
