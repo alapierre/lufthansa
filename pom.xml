@@ -11,6 +11,7 @@
         <module>camel</module>
         <module>jms</module>
         <module>jaxb</module>
+        <module>spring-batch-sample</module>
     </modules>
     <packaging>pom</packaging>
 

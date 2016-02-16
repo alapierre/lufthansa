@@ -8,4 +8,5 @@
 /test.txt
 **/target
 out
+/spring-batch-sample/xml
 gen
