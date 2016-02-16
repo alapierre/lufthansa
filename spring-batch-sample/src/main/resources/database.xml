@@ -10,10 +10,10 @@
 
     <bean id="dataSource"
               class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
-        <property name="url" value="jdbc:derby://localhost:1527/spring-batch;create=true" />
-        <property name="username" value="sa" />
-        <property name="password" value="sa" />
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost/spring-batch" />
+        <property name="username" value="postgres" />
+        <property name="password" value="1qazxsw2!Q" />
     </bean>
 
     <!--<jdbc:embedded-database id="dataSource" type="DERBY">-->
@@ -26,8 +26,8 @@
  
      <!--create job-meta tables automatically-->
     	<jdbc:initialize-database data-source="dataSource">
-    		<!--<jdbc:script location="org/springframework/batch/core/schema-drop-derby.sql" />-->
-    		<jdbc:script location="org/springframework/batch/core/schema-derby.sql" />
+    		<jdbc:script location="org/springframework/batch/core/schema-drop-postgresql.sql" />
+    		<jdbc:script location="org/springframework/batch/core/schema-postgresql.sql" />
     	</jdbc:initialize-database>
     
 </beans>
