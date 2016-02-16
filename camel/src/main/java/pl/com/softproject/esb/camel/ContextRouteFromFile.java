@@ -12,6 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
+import java.util.Scanner;
+
 import javax.jms.ConnectionFactory;
 
 /**
@@ -40,9 +42,9 @@ public class ContextRouteFromFile {
             template.sendBody("test-jms:queue:test.queue", "Test Message: " + i);
         }
 
+        Scanner keyboard = new Scanner(System.in);
+        keyboard.next();
 
-        // wait a bit and then stop
-        Thread.sleep(1000);
         camelContext.stop();
 
     }

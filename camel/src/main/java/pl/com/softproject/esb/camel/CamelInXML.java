@@ -24,7 +24,7 @@ public class CamelInXML {
             template.sendBody("test-jms:queue:test.queue", "Test Message: " + i);
         }
 
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
 
     }
 
