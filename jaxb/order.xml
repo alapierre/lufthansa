@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:order xmlns:ns2="http://www.softproject.com.pl/lilu/model/order" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <comments>
+        <comment>
+            <type>type</type>
+            <value>skksksks</value>
+        </comment>
+    </comments>
+</ns2:order>
