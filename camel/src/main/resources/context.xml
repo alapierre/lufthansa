@@ -10,9 +10,9 @@
                            http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd
        ">
 
-    <!--<amq:connectionFactory id="jmsFactory" brokerURL="tcp://localhost:61616"/>-->
+    <amq:connectionFactory id="jmsFactory" brokerURL="tcp://localhost:61616"/>
 
-    <amq:connectionFactory id="jmsFactory" brokerURL="vm://localhost?broker.persistent=false"/>
+    <!--<amq:connectionFactory id="jmsFactory" brokerURL="vm://localhost?broker.persistent=false"/>-->
 
 
 </beans>
