@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<order:order xmlns:order="http://www.softproject.com.pl/lilu/model/order"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.softproject.com.pl/lilu/model/order http://schema.softproject.com.pl/order.xsd">
+  <order-id>145673/04/2015/0</order-id>
+  <order-date>2015-04-21T07:06:29</order-date>
+  <worthe currency="PLN">135</worthe>
+  <orygin-country-code>en</orygin-country-code>
+  <status>
+    <current>Nowe</current>
+    <next></next>
+    <id>1</id>
+  </status>
+  <delivery-address>
+    <city>GRÓJEC</city>
+    <country country-code="PL">Polska</country>
+    <street>PODOLE 72F </street>
+    <post-code>05-600</post-code>
+  </delivery-address>
+  <customer>
+    <name>MIRELA</name>
+    <last-name>JAŚKOWSKA-RUP</last-name>
+    <phone>111111111111</phone>
+    <email>2222222222@o2.pl</email>
+  </customer>
+  <transport>
+    <id>22</id>
+    <name>Przesyłka za pobraniem (Poczta Polska)</name>
+    <price currency="PLN">15.00</price>
+    <type>DHL-CASH-ON</type>
+    <subjekt-id>POBRANIE/POCZTA</subjekt-id>
+  </transport>
+  <suites>
+    <suite>
+      <name>Zestaw 1</name>
+      <items>
+        <item>
+          <name>Medalik z koniczyną srebrny</name>
+          <label><![CDATA[]]></label>
+          <subjekt-id>11/20</subjekt-id>
+          <price currency="PLN">120</price>
+          <volume>1</volume>
+        </item>
+        <item>
+          <name>Sznurek gruby na rękę</name>
+          <label><![CDATA[kolor: jasny róż, rozmiar: dziecięcy]]></label>
+          <subjekt-id></subjekt-id>
+          <price currency="PLN">0</price>
+          <volume>1</volume>
+        </item>
+      </items>
+      <image-url>http://www.lilou.pl/img_view?key=uTzeQsuh9vmN</image-url>
+    </suite>
+  </suites>
+  <comments>
+    <comment>
+      <type>Ogólne</type>
+      <value><![CDATA[Proszę o złotą zawieszkę]]></value>
+    </comment>
+    <comment>
+      <type>Grawer</type>
+      <value><![CDATA[Proszę o grawer na stronie  głównej taki sam napis jak jest na wzorze zestawu 543, a na odwrocie datę 10.05.2015]]></value>
+    </comment>
+    <comment>
+      <type>Dostawa</type>
+      <value><![CDATA[]]></value>
+    </comment>
+  </comments>
+</order:order>

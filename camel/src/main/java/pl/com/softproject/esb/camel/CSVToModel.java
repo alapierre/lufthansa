@@ -1,0 +1,63 @@
+/**
+ * Copyright 2016-02-17 the original author or authors.
+ */
+package pl.com.softproject.esb.camel;
+
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jms.JmsComponent;
+import org.apache.camel.dataformat.bindy.csv.BindyCsvDataFormat;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.spi.DataFormat;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import pl.com.softproject.esb.model.BookModel;
+
+import javax.jms.ConnectionFactory;
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ * @author Adrian Lapierre {@literal <adrian@soft-project.pl>}
+ */
+public class CSVToModel {
+
+    public static void main(String[] args) throws Exception {
+
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("context.xml");
+
+        CamelContext camelContext = new DefaultCamelContext();
+
+        camelContext.addComponent("jms", JmsComponent.jmsComponentAutoAcknowledge(ctx.getBean(ConnectionFactory.class)));
+
+        final DataFormat bindy = new BindyCsvDataFormat(BookModel.class);
+
+        camelContext.addRoutes(new RouteBuilder() {
+            public void configure() {
+                from("file://D:/orders?charset=utf-8")
+                        .unmarshal(bindy)
+                        .process(new Processor() {
+                            public void process(Exchange exchange) throws Exception {
+                                Object o = exchange.getIn().getBody();
+                                List list = (List) o;
+
+                                for(Object tmp : list) {
+                                    System.out.println(tmp);
+                                }
+                            }
+                        }).to("jms:queue:order");
+            }
+        });
+
+        camelContext.start();
+
+        Scanner keyboard = new Scanner(System.in);
+        keyboard.next();
+
+        camelContext.stop();
+
+    }
+
+}
