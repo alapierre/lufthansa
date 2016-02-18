@@ -34,7 +34,7 @@ public class FileToBean {
                 from("file://d:/orders?charset=UTF-8")
                         .to("test-jms:queue:test.queue");
 
-                from("test-jms:queue:test.queue").bean(beanProcessor);
+                from("test-jms:queue:test.queue?concurrentConsumers=5").bean(beanProcessor);
             }
         });
 

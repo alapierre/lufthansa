@@ -4,11 +4,15 @@
 package pl.com.softproject.esb.camel;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.JmsComponent;
+import org.apache.camel.dataformat.xmljson.XmlJsonDataFormat;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import pl.com.softproject.esb.model.Person;
 
 import javax.jms.ConnectionFactory;
 import java.util.Scanner;
@@ -16,7 +20,7 @@ import java.util.Scanner;
 /**
  * @author Adrian Lapierre {@literal <adrian@soft-project.pl>}
  */
-public class XMLSplitter {
+public class JsonToXML {
 
     public static void main(String[] args) throws Exception {
 
@@ -26,16 +30,31 @@ public class XMLSplitter {
 
         camelContext.addComponent("jms", JmsComponent.jmsComponentAutoAcknowledge(ctx.getBean(ConnectionFactory.class)));
 
+        final XmlJsonDataFormat xmlJsonFormat = new XmlJsonDataFormat();
+        xmlJsonFormat.setRootName("person");
+        xmlJsonFormat.setEncoding("UTF-8");
+
         camelContext.addRoutes(new RouteBuilder() {
             public void configure() {
-                from("file://D:/orders")
-                        .split(xpath("//book[@category='Tech']/authors/author/text()"))
-                                //.namespace("c", "http://softproject.com.pl/schema/books"))
-                        .to("jms:queue:authors");
+                from("jms:queue:obj").marshal().json(JsonLibrary.Jackson)
+                        .to("jms:queue:json");
+
+                from("jms:queue:json").unmarshal(xmlJsonFormat)
+                        .to("jms:queue:xml");
             }
         });
 
         camelContext.start();
+
+        ProducerTemplate template = camelContext.createProducerTemplate();
+
+        Person p = new Person();
+        p.setLastName("ąłłńśćźżaa");
+        p.setName("Jan");
+
+        for (int i = 0; i < 10; i++) {
+            template.sendBody("jms:queue:obj", p);
+        }
 
         Scanner keyboard = new Scanner(System.in);
         keyboard.next();
@@ -43,6 +62,5 @@ public class XMLSplitter {
         camelContext.stop();
 
     }
-
 
 }

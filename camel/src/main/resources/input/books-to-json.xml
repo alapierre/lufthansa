@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookstore>
+    <book>
+        <author1>Adrian</author1>
+        <author2>nikt</author2>
+        <category>informatyka</category>
+        <price>12.22</price>
+        <publishDate>01-02-2015</publishDate>
+        <title>Camel in Action</title>
+        <titleLanguage>en</titleLanguage>
+    </book>
+    <book>
+        <author1>Adrian</author1>
+        <author2>nikt</author2>
+        <category>informatyka</category>
+        <price>15.55</price>
+        <publishDate>01-02-2015</publishDate>
+        <title>Camel Cookbook</title>
+        <titleLanguage>en</titleLanguage>
+    </book>
+</bookstore>

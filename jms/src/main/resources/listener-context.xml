@@ -29,7 +29,8 @@
                             connection-factory="jmsConsumerConnectionFactory"
                             acknowledge="auto">
         <!--<jms:listener destination="q1" ref="jmsMessageListener" />-->
-        <jms:listener destination="q1" ref="orderListener" />
+        <!--<jms:listener destination="q1" ref="orderListener" />-->
+        <jms:listener destination="json" ref="jsonListener"/>
     </jms:listener-container>
 
     <bean id="jmsMessageListener" class="pl.com.softproject.esb.jmx.MyMessageListener">
@@ -38,6 +39,10 @@
 
     <bean id="orderListener" class="pl.com.softproject.esb.jmx.OrderListener">
 
+    </bean>
+
+    <bean class="pl.com.softproject.esb.jmx.JsonListener" id="jsonListener">
+        
     </bean>
 
     <bean class="org.springframework.jms.support.converter.MappingJackson2MessageConverter" name="messageConverter">
